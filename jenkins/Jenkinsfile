@@ -19,6 +19,7 @@ pipeline {
                 }
             }
             steps {
+                sh 'echo vediamo un po'
                withSonarQubeEnv(installationName: 'ColoSonarQubeScanner', credentialsId: 'SonarQubeToken') {
                 //sh 'mvn clean package sonar:sonar'
                 sh 'echo sonarqube scanner execution'
