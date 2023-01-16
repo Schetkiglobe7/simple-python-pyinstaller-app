@@ -11,6 +11,16 @@ pipeline {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
             }
         }
+
+        stage ('Scan and Build Jar File') {
+            steps {
+               withSonarQubeEnv(installationName: 'ColoSonarQubeScanner', credentialsId: 'SonarQubeToken') {
+                //sh 'mvn clean package sonar:sonar'
+                sh 'echo sonarqube scanner execution'
+                }
+            }
+        }
+
         stage('Test') {
             agent {
                 docker {
