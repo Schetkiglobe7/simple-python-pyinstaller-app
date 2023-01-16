@@ -12,25 +12,14 @@ pipeline {
             }
         }
 
-        stage('Post-build') {
-            agent any
-            steps{
-                sh 'echo post-build'
-            }
-        }
-
-        stage ('Scan and Build Jar File') {
+        stage('PostBuild') {
             agent {
                 docker {
-                    image 'sonarqube_latest'
+                    image 'python:2-alpine'
                 }
             }
             steps {
-                sh 'echo vediamo un po'
-               withSonarQubeEnv(installationName: 'ColoSonarQubeScanner', credentialsId: 'SonarQubeToken') {
-                //sh 'mvn clean package sonar:sonar'
-                sh 'echo sonarqube scanner execution'
-                }
+                sh 'python -m py_compile sources/add2vals.py sources/calc.py'
             }
         }
 
