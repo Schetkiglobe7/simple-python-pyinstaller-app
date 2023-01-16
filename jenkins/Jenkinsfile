@@ -12,6 +12,13 @@ pipeline {
             }
         }
 
+        stage('Post-build') {
+            agent any
+            steps{
+                sh 'echo post-build'
+            }
+        }
+
         stage ('Scan and Build Jar File') {
             agent {
                 docker {
