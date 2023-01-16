@@ -13,6 +13,11 @@ pipeline {
         }
 
         stage ('Scan and Build Jar File') {
+            agent {
+                docker {
+                    image 'sonarqube_latest'
+                }
+            }
             steps {
                withSonarQubeEnv(installationName: 'ColoSonarQubeScanner', credentialsId: 'SonarQubeToken') {
                 //sh 'mvn clean package sonar:sonar'
