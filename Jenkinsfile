@@ -16,6 +16,20 @@ pipeline {
             }
         }
 
+         stage ('Scan and Build Jar File') {
+            agent {
+                docker {
+                    image 'sonarqube:latest'
+                }
+            }
+            steps {
+               withSonarQubeEnv(installationName: 'ColoSonarQubeScanner', credentialsId: 'SonarQubeToken') {
+                //sh 'mvn clean package sonar:sonar'
+                sh 'echo sonarqube scanner execution'
+                }
+            }
+        }
+
         stage('Test') {
             agent {
                 docker {
